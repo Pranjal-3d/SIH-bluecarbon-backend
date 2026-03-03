@@ -4,7 +4,12 @@ const mongoose = require('mongoose');
 const models = require('../models');  // import all models
 
 async function setupCollections() {
-  await connectDB();
+  try {
+    await connectDB();
+  } catch (error) {
+    console.error('Error connecting to the database:', error);
+    return;
+  }
 
   try {
     for (const modelName in models) {
