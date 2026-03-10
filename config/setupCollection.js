@@ -9,10 +9,12 @@ async function setupCollections() {
   try {
     for (const modelName in models) {
       const model = models[modelName];
-      if (model && model.createCollection) {
+      if (model && typeof model.createCollection === 'function') {
         console.log('MONGODB_URI:', process.env.MONGODB_URI);
         await model.createCollection();
         console.log(`${model.modelName} collection created or already exists.`);
+      } else {
+        console.warn(`Model ${modelName} does not have a createCollection method.`);
       }
     }
   } catch (error) {
