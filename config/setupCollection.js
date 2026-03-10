@@ -4,21 +4,25 @@ const mongoose = require('mongoose');
 const models = require('../models');  // import all models
 
 async function setupCollections() {
-  await connectDB();
-
   try {
+    await connectDB();
+    console.log('Connected to the database.');
+
     for (const modelName in models) {
       const model = models[modelName];
       if (model && model.createCollection) {
         console.log('MONGODB_URI:', process.env.MONGODB_URI);
         await model.createCollection();
         console.log(`${model.modelName} collection created or already exists.`);
+      } else {
+        console.warn(`Model ${modelName} is not a valid Mongoose model.`);
       }
     }
   } catch (error) {
     console.error('Error creating collections:', error);
   } finally {
     await mongoose.disconnect();
+    console.log('Disconnected from the database.');
   }
 }
 
