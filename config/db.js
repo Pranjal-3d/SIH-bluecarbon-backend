@@ -3,8 +3,8 @@ require('dotenv').config();
 
 const connectDB = async () => {
   try {
-    // This line uses the URI from your .env file
-    await mongoose.connect(process.env.MONGODB_URI);
+    // This line uses the new URI from your .env file
+    await mongoose.connect(process.env.NEW_MONGODB_URI);
     console.log('MongoDB connected successfully.');
   } catch (error) {
     console.error('MongoDB connection failed:', error.message);
