@@ -1,7 +1,7 @@
 require('dotenv').config();
 const connectDB = require('./db');
 const mongoose = require('mongoose');
-const models = require('../models');  // import all models
+const models = require('./models');  // Changed the import path to relative
 
 async function setupCollections() {
   await connectDB();
